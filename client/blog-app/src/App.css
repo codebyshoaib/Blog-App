@@ -40,6 +40,10 @@ div.post{
     margin-bottom: 30px;
     padding: 25px;
 }
+div.post img{
+    width: 500px;
+    border-radius: 16px;
+}
 div.post div.texts h2{
     margin: 0px;
     font-size: 1.8rem;
