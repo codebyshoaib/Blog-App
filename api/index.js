@@ -29,7 +29,9 @@ mongoose.connect('mongodb+srv://shoaib:1234@mainblogdb.7qivs.mongodb.net/?retryW
     useUnifiedTopology: true,
     tls: true,
 });
-
+app.get('/',(req,res)=>{
+    res.send("Hello");
+})
 app.post('/register', async (req, res) => {
     const { firstName, lastName, userName, password } = req.body;
     try {
