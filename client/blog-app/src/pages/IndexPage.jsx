@@ -26,6 +26,7 @@ export const IndexPage = () => {
             cover={post.cover}
             createdAt={post.createdAt}
             author={post.author}
+            _id={post._id}
           />
         ))
       ) : (

@@ -23,8 +23,10 @@ export const Header = () => {
     setUserInfo(null);
   }
   const userName=userInfo?.userName
+ 
   return (
     <>
+     
       <header>
         <Link to="/" className="logo">
           My Blog

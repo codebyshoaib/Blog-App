@@ -1,37 +1,8 @@
 import React, { useState } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import { Navigate } from "react-router-dom";
-const modules = {
-  toolbar: [
-    [{ header: [1, 2, 3, 4, 5, 6, false] }],
-    ["bold", "italic", "underline", "strike", "blockquote"],
-    [{ list: "ordered" }, { list: "bullet" }, { indent: "-1" }],
 
-    ["link", "image", "video"],
-    [{ color: [] }, { background: [] }],
-    ["clean"],
-  ],
-  clipboard: {
-    matchVisual: false,
-  },
-};
-const formats = [
-  "bold",
-  "italic",
-  "underline",
-  "strike",
-  "align",
-  "list",
-  "indent",
-  "size",
-  "header",
-  "link",
-  "image",
-  "video",
-  "color",
-  "background",
-];
+import { Navigate } from "react-router-dom";
+
+
 export const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");
@@ -77,12 +48,7 @@ export const CreatePost = () => {
           onChange={(ev) => setSummary(ev.target.value)}
         />
         <input type="file"  onChange={(ev)=>setFiles(ev.target.files)} />
-        <ReactQuill
-          value={content}
-          onChange={(newValue) => setContent(newValue)}
-          modules={modules}
-          formats={formats}
-        />
+        <Editor value={content} onChange={setContent}></Editor>
         <button
           style={{ marginTop: "5px", backgroundColor: "green", color: "white" }}
         >
