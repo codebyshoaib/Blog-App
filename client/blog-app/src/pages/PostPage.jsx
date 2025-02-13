@@ -8,7 +8,7 @@ export const PostPage = () => {
   const [postInfo, setPostInfo] = useState(null);
   const { userInfo } = useContext(UserContext);
   useEffect(() => {
-    fetch(`http://localhost:4000/post/${id}`)
+    fetch(`https://blog-app-887w.vercel.app/post/${id}`)
       .then((res) => res.json()) // Call json() correctly
       .then((postInfo) => {
         setPostInfo(postInfo);

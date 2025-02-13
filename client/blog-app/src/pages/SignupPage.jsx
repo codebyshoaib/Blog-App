@@ -7,7 +7,7 @@ export const SignupPage = () => {
   const [userName,setUserName]=useState("");
   async function register(ev) {
     ev.preventDefault();
-   const result= await fetch("http://localhost:4000/register", {
+   const result= await fetch("https://blog-app-887w.vercel.app/register", {
       method: "POST",
       body: JSON.stringify({
         firstName: firstName,

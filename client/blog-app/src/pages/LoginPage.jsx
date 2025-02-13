@@ -12,7 +12,7 @@ export const LoginPage = () => {
   async function handleLogin(e) {
     e.preventDefault();
 
-    const result = await fetch("http://localhost:4000/login", {
+    const result = await fetch("https://blog-app-887w.vercel.app/login", {
       method: "POST",
       body: JSON.stringify({
         userName: userName,
