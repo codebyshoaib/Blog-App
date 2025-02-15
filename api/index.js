@@ -13,7 +13,7 @@ const Post = require('./models/Post')
 const app = express();
 
 app.use(cors({
-    origin: 'https://deploy-mern-1whq.vercel.app',
+    origin: 'http://localhost::4000',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
