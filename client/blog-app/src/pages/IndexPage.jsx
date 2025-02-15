@@ -6,7 +6,7 @@ export const IndexPage = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch('https://blog-app-887w.vercel.app/post')
+    fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/post`)
       .then((res) => res.json())
       .then((data) => {
         setPosts(data);

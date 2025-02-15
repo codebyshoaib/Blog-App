@@ -17,7 +17,7 @@ export const CreatePost = () => {
     data.set('files',files[0])
     ev.preventDefault();
     
-   const response=await fetch('https://blog-app-887w.vercel.app/post',{
+   const response=await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/post`,{
       method:'POST',
       body:data,
       credentials:'include',

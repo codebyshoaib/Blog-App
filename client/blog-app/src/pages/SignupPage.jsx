@@ -7,7 +7,7 @@ export const SignupPage = () => {
   const [userName,setUserName]=useState("");
   async function register(ev) {
     ev.preventDefault();
-   const result= await fetch("https://blog-app-887w.vercel.app/register", {
+   const result= await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/register`, {
       method: "POST",
       body: JSON.stringify({
         firstName: firstName,

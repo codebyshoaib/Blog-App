@@ -11,7 +11,7 @@ export const EditPost = () => {
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
-    fetch(`https://blog-app-887w.vercel.app/post/${id}`)
+    fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/post/${id}`)
       .then((response) => response.json())
       .then((postInfo) => {
         setTitle(postInfo.title);

@@ -8,7 +8,7 @@ export const PostPage = () => {
   const [postInfo, setPostInfo] = useState(null);
   const { userInfo } = useContext(UserContext);
   useEffect(() => {
-    fetch(`https://blog-app-887w.vercel.app/post/${id}`)
+    fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/post/${id}`)
       .then((res) => res.json()) // Call json() correctly
       .then((postInfo) => {
         setPostInfo(postInfo);

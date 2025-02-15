@@ -5,7 +5,7 @@ import { UserContext } from "../UserContext";
 export const Header = () => {
  const {setUserInfo,userInfo}=useContext(UserContext);
   useEffect(() => {
-    fetch("http://localhost:4000/profile", {
+    fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/profile`, {
       credentials: "include",
     }).then((response) => {
       response.json().then((userInfo) => {
@@ -15,7 +15,7 @@ export const Header = () => {
   }, []);
 
   function handleLogOut(){
-    fetch('http://localhost:4000/logout',{
+    fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/logout`,{
       credentials:'include',
       method:'POST'
 

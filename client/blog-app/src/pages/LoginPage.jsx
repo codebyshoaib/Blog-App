@@ -12,7 +12,7 @@ export const LoginPage = () => {
   async function handleLogin(e) {
     e.preventDefault();
 
-    const result = await fetch("https://blog-app-887w.vercel.app/login", {
+    const result = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/login`, {
       method: "POST",
       body: JSON.stringify({
         userName: userName,
