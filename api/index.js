@@ -9,11 +9,13 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const User = require('./models/User');
 const Post = require('./models/Post')
+require('dotenv').config();
+
 
 const app = express();
 
 app.use(cors({
-    origin: `${import.meta.env.FRONT_END_URL}`,
+    origin: process.env.FRONT_END_URL,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
@@ -22,7 +24,7 @@ app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
 const salt = bcrypt.genSaltSync(10);
-const secret = `${import.meta.env.JWT_SECRET}`; // Ensure this is the same everywhere
+const secret = process.env.JWT_SECRET; // Ensure this is the same everywhere
 try{
 mongoose.connect('mongodb+srv://shoaib:1234@mainblogdb.7qivs.mongodb.net/?retryWrites=true&w=majority&appName=mainBlogDB', {
     useNewUrlParser: true,
