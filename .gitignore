@@ -8,20 +8,20 @@ pnpm-debug.log*
 lerna-debug.log*
 
 # Node modules
-frontend/node_modules/
-backend/node_modules/
+client/node_modules/
+api/node_modules/
 
 # Environment variables
-frontend/.env
-frontend/.env.local
-frontend/.env.*.local
-backend/.env
-backend/.env.local
-backend/.env.*.local
+client/.env
+client/.env.local
+client/.env.*.local
+api/.env
+api/.env.local
+api/.env.*.local
 
 # Build output
-frontend/dist/
-backend/dist/
+client/dist/
+api/dist/
 
 # Editor directories and files
 .vscode/*

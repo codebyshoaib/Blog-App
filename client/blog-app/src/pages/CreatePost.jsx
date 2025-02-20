@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import {Editor} from '../Editor.jsx'
 import { Navigate } from "react-router-dom";
 
 

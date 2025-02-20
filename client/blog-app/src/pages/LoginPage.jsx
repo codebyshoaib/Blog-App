@@ -12,7 +12,7 @@ export const LoginPage = () => {
   async function handleLogin(e) {
     e.preventDefault();
 
-    const result = await fetch("http://localhost:4000/login", {
+    const result = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/login`, {
       method: "POST",
       body: JSON.stringify({
         userName: userName,

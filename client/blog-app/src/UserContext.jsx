@@ -6,7 +6,7 @@ export function UserContextProvider({ children }) {
   const [userInfo, setUserInfo] = useState({ userName: "" });
 
   useEffect(() => {
-    fetch("http://localhost:4000/profile", {
+    fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/profile`, {
       credentials: "include",
     })
       .then((response) => {
