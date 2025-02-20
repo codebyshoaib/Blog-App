@@ -31,7 +31,7 @@ mongoose.connect('mongodb+srv://shoaib:1234@mainblogdb.7qivs.mongodb.net/?retryW
 });
 }
 catch(E){
-    console.log(e);
+    console.log(E);
 }
 
 app.post('/register', async (req, res) => {
