@@ -23,12 +23,16 @@ app.use('/uploads', express.static(__dirname + '/uploads'));
 
 const salt = bcrypt.genSaltSync(10);
 const secret = `${import.meta.env.JWT_SECRET}`; // Ensure this is the same everywhere
-
+try{
 mongoose.connect('mongodb+srv://shoaib:1234@mainblogdb.7qivs.mongodb.net/?retryWrites=true&w=majority&appName=mainBlogDB', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     tls: true,
 });
+}
+catch(E){
+    console.log(e);
+}
 
 app.post('/register', async (req, res) => {
     const { firstName, lastName, userName, password } = req.body;
