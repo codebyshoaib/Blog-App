@@ -199,7 +199,9 @@ app.get('/post/:id', async (req, res) => {
 
 })
 
-
+app.get('/',(req,res)=>{
+    res.send('Hello ');
+})
 
 app.listen(4000, () => {
     console.log("Server is running on Port 4000");
