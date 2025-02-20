@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const multer = require('multer');
-const upload = multer({ storage: multer.memoryStorage() }); 
+const uploadMW = multer({ storage: multer.memoryStorage() }); 
 
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
@@ -28,8 +28,7 @@ const salt = bcrypt.genSaltSync(10);
 const secret = process.env.JWT_SECRET; // Ensure this is the same everywhere
 try{
 mongoose.connect('mongodb+srv://shoaib:1234@mainblogdb.7qivs.mongodb.net/?retryWrites=true&w=majority&appName=mainBlogDB', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+   
     tls: true,
 });
 }
