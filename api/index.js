@@ -13,7 +13,7 @@ const Post = require('./models/Post')
 const app = express();
 
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: `${import.meta.env.FRONT_END_URL}`,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
@@ -22,7 +22,7 @@ app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
 const salt = bcrypt.genSaltSync(10);
-const secret = 'cbd96872ac270e1fc837f2a22f218ab41876d32517d1cf72b7c6efe41dab636975f2238dda670a06816d3752fe3d9c3bb153d0e6926869b3326c7d0731415fb42f6d5eb73b5f93906b3d40afd9a9830c0ab64ceba1006625fd32473fb9fb3518a073aecdf8d579ec627bf3061ae8229701e461b0cb5d4847d3bf7e368d2d3ad930475dacbaa4cbaf7671a73e2f88f66c597c3df7c7af5e29e5af96cea727878cc31847427b8908c98922a548fd778f42b6bcef0a9ffbcbfad40159443ebcb1d1197b169fa542a618f942eca959cdc3c02dca6699bf7a30e9912c86df7adff43136de869dc6f46631d884319e1b2e7a71b7efab69a4af0a587142d50063f29920'; // Ensure this is the same everywhere
+const secret = `${import.meta.env.JWT_SECRET}`; // Ensure this is the same everywhere
 
 mongoose.connect('mongodb+srv://shoaib:1234@mainblogdb.7qivs.mongodb.net/?retryWrites=true&w=majority&appName=mainBlogDB', {
     useNewUrlParser: true,
