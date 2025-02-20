@@ -2,7 +2,8 @@ const express = require("express");
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const multer = require('multer');
-const uploadMW = multer({ dest: 'uploads/' });
+const upload = multer({ storage: multer.memoryStorage() }); 
+
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
