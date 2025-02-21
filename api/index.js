@@ -113,7 +113,7 @@ app.get('/profile', (req, res) => {
     });
 });
 
-app.post("/post", upload.single("files"), async (req, res) => {
+app.post("/post", uploadMW.single("files"), async (req, res) => {
     try {
         const { path } = req.file;
 
