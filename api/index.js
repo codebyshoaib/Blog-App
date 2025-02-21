@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const multer = require('multer');
 const uploadMW = multer({ storage: multer.memoryStorage() }); 
+
 const cloudinary = require("cloudinary").v2;
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
@@ -113,38 +114,39 @@ app.get('/profile', (req, res) => {
     });
 });
 
-app.post("/post", uploadMW.single("files"), async (req, res) => {
+app.post('/post', uploadMW.single("files"), async (req, res) => {
     try {
-        const { path } = req.file;
-
-        // 🔹 Upload file to Cloudinary
-        const result = await cloudinary.uploader.upload(path, { folder: "blog-uploads" });
-
-        // Delete local file after upload
-        fs.unlinkSync(path);
+        if (!req.file) {
+            return res.status(400).json({ error: "No file uploaded" });
+        }
 
         const { title, summary, content } = req.body;
-        const { token } = req.cookies;
 
+        const { token } = req.cookies;
         jwt.verify(token, secret, {}, async (err, info) => {
             if (err) {
                 console.error("JWT Verify Error: ", err);
                 return res.status(401).json({ error: "Invalid or expired token" });
             }
+
+            // Store file buffer in database instead of file path (since Vercel doesn't allow disk writes)
             const postDoc = await Post.create({
                 title,
                 summary,
                 content,
-                cover: result.secure_url, // 🔹 Store Cloudinary URL instead
+                cover: req.file.buffer.toString('base64'), // Convert to base64 if storing in DB
                 author: info.id,
             });
+
             res.json(postDoc);
         });
+
     } catch (error) {
-        console.error(error);
+        console.error("Error in /post:", error);
         res.status(500).json({ error: "Internal server error" });
     }
 });
+
 
 app.put('/post/:id', uploadMW.single("file"), async (req, res) => {
     let newPath = null;
