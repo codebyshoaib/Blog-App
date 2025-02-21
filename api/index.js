@@ -129,16 +129,28 @@ app.post('/post', uploadMW.single("files"), async (req, res) => {
                 return res.status(401).json({ error: "Invalid or expired token" });
             }
 
-            // Store file buffer in database instead of file path (since Vercel doesn't allow disk writes)
-            const postDoc = await Post.create({
-                title,
-                summary,
-                content,
-                cover: req.file.buffer.toString('base64'), // Convert to base64 if storing in DB
-                author: info.id,
-            });
+          // Upload to Cloudinary using a stream
+          const stream = cloudinary.uploader.upload_stream(
+            { folder: "blog_covers" },
+            async (error, result) => {
+                if (error) {
+                    console.error("Cloudinary Upload Error:", error);
+                    return res.status(500).json({ error: "Cloudinary upload failed" });
+                }
 
-            res.json(postDoc);
+                const postDoc = await Post.create({
+                    title,
+                    summary,
+                    content,
+                    cover: result.secure_url, // Cloudinary URL
+                    author: info.id,
+                });
+
+                res.json(postDoc);
+            }
+        );
+
+        streamifier.createReadStream(req.file.buffer).pipe(stream);
         });
 
     } catch (error) {
