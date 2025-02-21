@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const multer = require('multer');
 const uploadMW = multer({ storage: multer.memoryStorage() }); 
-
+const cloudinary = require("cloudinary").v2;
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
@@ -12,7 +12,11 @@ const User = require('./models/User');
 const Post = require('./models/Post')
 require('dotenv').config();
 
-
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 const app = express();
 
 app.use(cors({
@@ -109,18 +113,19 @@ app.get('/profile', (req, res) => {
     });
 });
 
-app.post('/post', uploadMW.single("files"), async (req, res) => {
+app.post("/post", upload.single("files"), async (req, res) => {
     try {
-        const { originalname, path } = req.file;
+        const { path } = req.file;
 
+        // 🔹 Upload file to Cloudinary
+        const result = await cloudinary.uploader.upload(path, { folder: "blog-uploads" });
 
-        const newFilename = `${Date.now()}-${originalname}`;
-        const newPath = `uploads/${newFilename}`;
-        fs.renameSync(path, newPath);
+        // Delete local file after upload
+        fs.unlinkSync(path);
 
         const { title, summary, content } = req.body;
-
         const { token } = req.cookies;
+
         jwt.verify(token, secret, {}, async (err, info) => {
             if (err) {
                 console.error("JWT Verify Error: ", err);
@@ -130,14 +135,11 @@ app.post('/post', uploadMW.single("files"), async (req, res) => {
                 title,
                 summary,
                 content,
-                cover: newPath,
+                cover: result.secure_url, // 🔹 Store Cloudinary URL instead
                 author: info.id,
             });
             res.json(postDoc);
         });
-
-
-
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Internal server error" });
