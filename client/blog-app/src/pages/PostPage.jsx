@@ -45,7 +45,7 @@ export const PostPage = () => {
         </div>
       )}
       <div className="image">
-        <img src={`http://localhost:4000/${postInfo.cover}`} alt="" />
+        <img src={`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/${postInfo.cover}`} alt="" />
       </div>
       <div className="content">
         <div dangerouslySetInnerHTML={{ __html: postInfo.content }}></div>

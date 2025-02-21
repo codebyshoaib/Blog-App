@@ -8,7 +8,7 @@ export const Post = ({ _id,title, summary, content, cover, createdAt, author }) 
       <div className="post">
         <div className="image">
           <Link to={`/post/${_id}`}>
-            <img src={`http://localhost:4000/` + cover} />
+            <img src={`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}` + cover} />
           </Link>
         </div>
         <div className="text">
